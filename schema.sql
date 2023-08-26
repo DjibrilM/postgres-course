@@ -8,3 +8,14 @@ CREATE TABLE animals (
     neutered boolean,
     weight_kg decimal
 );
+
+CREATE TABLE owners (
+    id  INT PRIMARY KEY ,
+    full_name VARCHAR(225),
+    Aage INT
+);
+
+CREATE TABLE species (
+    id  SERIAL UNIQUE ,
+    name VARCHAR(225)
+);

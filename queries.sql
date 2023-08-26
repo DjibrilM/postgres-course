@@ -54,3 +54,55 @@ SELECT species, MIN(weight_kg), MAX(weight_kg) FROM animals
    GROUP BY species;
 
 SELECT * FROM animals MIN(escape_attempts) WHERE EXTRACT(YEAR FROM date_of_birth) > 1990 AND EXTRACT(YEAR FROM date_of_birth) < 2000;
+
+ALTER TABLE animals 
+ADD CONSTRAINT fk_constraint_name
+FOREIGN KEY (owner_id)
+REFERENCES owners(id);
+
+ALTER TABLE animals  /*transform species into a foreign key*/
+ADD CONSTRAINT spacie_constriant_name  
+FOREIGN KEY (species)
+REFERENCES species(id);
+
+UPDATE animals SET species = 2 WHERE name LIKE '%mon';
+UPDATE animals SET species = 1 WHERE name NOT LIKE '%mon';
+UPDATE animals SET owner_id = 1 WHERE name = 'Agumon';
+UPDATE animals SET owner_id = 2 WHERE name = 'Pikachu';
+UPDATE animals SET owner_id = 2 WHERE name = 'Gabumon';
+UPDATE animals SET owner_id = 3 WHERE name = 'Devimon';
+UPDATE animals SET owner_id = 4 WHERE name = 'Charmander';
+UPDATE animals SET owner_id = 4 WHERE name = 'Squirtle';
+UPDATE animals SET owner_id = 4 WHERE name = 'Blossom';
+UPDATE animals SET owner_id = 5 WHERE name = 'Angemon';
+UPDATE animals SET owner_id = 5 WHERE name = 'Boarmon';
+
+
+SELECT * FROM animals INNER JOIN owners ON animals.owner_id = owners.id WHERE owners.full_name = 'Melody Pond';
+SELECT * FROM animals INNER JOIN species ON animals.species = species.id WHERE species.name = 'Pokemon';
+
+SELECT COUNT(id) AS sum_of_ids FROM animals GROUP BY species;
+SELECT s.species_name, a.species, a.animal_count
+
+SELECT s.name, a.species, a.animal_count
+FROM species s
+INNER JOIN (
+    SELECT species, COUNT(*) AS animal_count
+    FROM animals
+    GROUP BY species
+) a ON s.id = a.species
+ORDER BY a.animal_count DESC;
+
+
+SELECT *
+FROM owners o
+JOIN animals a ON o.id = a.owner_id
+WHERE o.full_name = 'Dean Winchester'
+AND (a.escape_attempts IS NULL OR a.escape_attempts = 0);
+
+SELECT o.id, o.full_name, COUNT(*) AS animal_count
+FROM owners o
+JOIN animals a ON o.id = a.owner_id
+GROUP BY o.id, o.full_name
+ORDER BY animal_count DESC
+LIMIT 1;
