@@ -6,7 +6,8 @@ CREATE TABLE animals (
     date_of_birth date not null,
     escape_attempts int,
     neutered boolean,
-    weight_kg decimal
+    weight_kg decimal,
+    species_id REFERENCES species(id) 
 );
 
 CREATE TABLE owners (
