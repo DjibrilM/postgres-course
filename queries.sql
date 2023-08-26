@@ -65,19 +65,6 @@ ADD CONSTRAINT spacie_constriant_name
 FOREIGN KEY (species)
 REFERENCES species(id);
 
-UPDATE animals SET species = 2 WHERE name LIKE '%mon';
-UPDATE animals SET species = 1 WHERE name NOT LIKE '%mon';
-UPDATE animals SET owner_id = 1 WHERE name = 'Agumon';
-UPDATE animals SET owner_id = 2 WHERE name = 'Pikachu';
-UPDATE animals SET owner_id = 2 WHERE name = 'Gabumon';
-UPDATE animals SET owner_id = 3 WHERE name = 'Devimon';
-UPDATE animals SET owner_id = 4 WHERE name = 'Charmander';
-UPDATE animals SET owner_id = 4 WHERE name = 'Squirtle';
-UPDATE animals SET owner_id = 4 WHERE name = 'Blossom';
-UPDATE animals SET owner_id = 5 WHERE name = 'Angemon';
-UPDATE animals SET owner_id = 5 WHERE name = 'Boarmon';
-
-
 SELECT * FROM animals INNER JOIN owners ON animals.owner_id = owners.id WHERE owners.full_name = 'Melody Pond';
 SELECT * FROM animals INNER JOIN species ON animals.species = species.id WHERE species.name = 'Pokemon';
 
@@ -146,4 +133,9 @@ JOIN vets vet ON v.vet = vet.id
 JOIN specialization s ON vet.id = s.vet
 JOIN animals a ON v.animal = a.id
 WHERE s.species <> a.species;
+
+
+ALTER TABLE animals
+ADD CONSTRAINT fk_constraint_name
+FOREIGN KEY (species) REFERENCES species(id);
 
