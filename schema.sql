@@ -36,7 +36,8 @@ species INT REFERENCES species(id)
 CREATE TABLE visits (
 id SERIAL UNIQUE,
 vet INT REFERENCES vets(id),
-animal INT REFERENCES animals(id)
+animal INT REFERENCES animals(id),
+visit_date DATE
 );
 
 

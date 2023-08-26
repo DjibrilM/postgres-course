@@ -106,3 +106,44 @@ JOIN animals a ON o.id = a.owner_id
 GROUP BY o.id, o.full_name
 ORDER BY animal_count DESC
 LIMIT 1;
+
+SELECT *
+FROM visits WHERE vet = 1
+ORDER BY visit_date DESC
+LIMIT 1;
+
+SELECT COUNT(DISTINCT animal) AS unique_count
+FROM visits WHERE vet = 3;
+
+SELECT a.id AS animal_id, a.name AS animal_name
+FROM animals a
+JOIN visits v ON a.id = v.animal
+JOIN vets vet ON v.vet = vet.id
+WHERE vet.name = 'Stephanie Mendez'
+    AND v.visit_date BETWEEN '2020-04-01' AND '2020-08-30';
+
+SELECT a.id AS animal_id, a.name AS animal_name, COUNT(*) AS visit_count
+FROM animals a
+JOIN visits v ON a.id = v.animal
+GROUP BY a.id, a.name
+ORDER BY visit_count DESC
+LIMIT 1;
+
+SELECT v.id AS vet_id, v.name AS vet_name, v.date_of_graduation AS vet_graduation_date
+FROM vets v
+JOIN (
+    SELECT vet, MIN(visit_date) AS first_visit_date
+    FROM visits
+    WHERE animal = (SELECT id FROM animals WHERE name = 'Maisy Smith')
+    GROUP BY vet
+    ORDER BY first_visit_date
+    LIMIT 1
+) AS subquery ON v.id = subquery.vet;
+
+SELECT COUNT(*) AS visits_with_non_specialist
+FROM visits v
+JOIN vets vet ON v.vet = vet.id
+JOIN specialization s ON vet.id = s.vet
+JOIN animals a ON v.animal = a.id
+WHERE s.species <> a.species;
+

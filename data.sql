@@ -32,3 +32,23 @@ INSERT INTO specialization(vet,species) VALUES(1,1);
 INSERT INTO specialization(vet,species) VALUES(3,1);
 INSERT INTO specialization(vet,species) VALUES(3,2); 
 INSERT INTO specialization(vet,species) VALUES(4,2);
+INSERT INTO visits(animal,vet,visit_date) VALUES (1,1,'may-24-2020'),
+(1,3,' Jul-22-2020'),
+(2,4,'feb-2-2021'),
+(3,2,'jan-5-2020'),
+(3,2,'mar-8-2020'),
+(3,2,'may-14-2020'),
+(4,3,'may-4-2021'),
+(5,4,'feb-24-2021'),
+(6,2,'dec-21-2019'),
+(6,2,'aug-10-2020'),
+(6,2,'apr-7-2021'),
+(7,3,'sep-29-2019'),
+(1,4,'oct-3-2020'),
+(8,4,'nov-4-2020'),
+(9,2,'Jan-24-2019'),
+(9,2,'may-15-2019'),
+(9,2,'feb-27-2020'),
+(9,2,'aug-3-2020'),
+(9,3,'may-24-2020'),
+(9,1,'Jan-11-2021');
