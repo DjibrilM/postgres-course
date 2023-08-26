@@ -7,7 +7,6 @@ CREATE TABLE animals (
     escape_attempts int,
     neutered boolean,
     weight_kg decimal,
-    species_id REFERENCES species(id) 
 );
 
 CREATE TABLE owners (
