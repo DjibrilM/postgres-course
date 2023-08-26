@@ -23,3 +23,12 @@ INSERT INTO owners (id,full_name,age) VALUES (1,'Sam Smith',34),
 (6,'Jodie Whittaker',38);
 
 INSERT INTO species (name) VALUES ('Pokemon'),('Digimon');
+INSERT INTO vets (id,name,age,date_of_graduation) VALUES(1,'William Tatcher',45,'apr-23-2000')
+,(2,'Maisy Smith',26,' Jan-17-2019'),
+(3,'Stephanie Mendez',64,'may-4-1981'),
+(4,'Jack Harkness ',38,'jun-8-2008');
+
+INSERT INTO specialization(vet,species) VALUES(1,1);
+INSERT INTO specialization(vet,species) VALUES(3,1);
+INSERT INTO specialization(vet,species) VALUES(3,2); 
+INSERT INTO specialization(vet,species) VALUES(4,2);

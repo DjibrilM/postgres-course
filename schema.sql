@@ -19,3 +19,24 @@ CREATE TABLE species (
     id  SERIAL UNIQUE ,
     name VARCHAR(225)
 );
+
+CREATE TABLE vets (
+id INT PRIMARY KEY UNIQUE,
+name VARCHAR(225),
+age INT,
+date_of_graduation DATE
+);
+
+CREATE TABLE specialization (
+id SERIAL UNIQUE,
+vet INT REFERENCES vets(id),
+species INT REFERENCES species(id)
+);
+
+CREATE TABLE visits (
+id SERIAL UNIQUE,
+vet INT REFERENCES vets(id),
+animal INT REFERENCES animals(id)
+);
+
+
