@@ -101,3 +101,72 @@ WHERE v.vet = 1
 ORDER BY v.visit_date DESC
 LIMIT 1;
 
+SELECT COUNT(DISTINCT animal) AS unique_count
+FROM visits WHERE vet = 3;
+
+/*Agumon visited Stephanie Mendez on Jul 22th, 2020.*/
+SELECT a.id AS animal_id, a.name AS animal_name
+FROM animals a
+JOIN visits v ON a.id = v.animal
+JOIN vets vet ON v.vet = vet.id
+WHERE vet.name = 'Stephanie Mendez'
+    AND v.visit_date BETWEEN '2020-04-01' AND '2020-08-30';
+
+/*List all vets and their specialties, including vets with no specialties.*/
+SELECT v.id AS vet_id, v.name AS vet_name, s.name AS specialty_name
+FROM vets v
+LEFT JOIN specialization sp ON v.id = sp.vet
+LEFT JOIN species s ON sp.species = s.id
+ORDER BY v.id;
+
+/*What animal has the most visits to vets?*/
+SELECT a.id AS animal_id, a.name AS animal_name, COUNT(*) AS visit_count
+FROM animals a
+JOIN visits v ON a.id = v.animal
+GROUP BY a.id, a.name
+ORDER BY visit_count DESC
+LIMIT 1;
+
+/*Who was Maisy Smith's first visit?*/
+SELECT a.id AS animal_id, a.name AS animal_name, v.name AS vet_name, vi.visit_date
+FROM animals a
+JOIN visits vi ON a.id = vi.animal
+JOIN vets v ON vi.vet = v.id
+WHERE v.name = 'Maisy Smith'
+ORDER BY vi.visit_date ASC
+LIMIT 1;
+
+/*How many visits were with a vet that did not specialize in that animal's species?*/
+SELECT COUNT(*) AS visits_with_non_specialist
+FROM visits v
+JOIN vets vet ON v.vet = vet.id
+JOIN specialization s ON vet.id = s.vet
+JOIN animals a ON v.animal = a.id
+WHERE s.species <> a.species;
+
+ALTER TABLE animals
+ADD CONSTRAINT fk_constraint_name
+FOREIGN KEY (species) REFERENCES species(id);
+
+/*Details for most recent visit: animal information, vet information, and date of visit.*/
+SELECT a.id AS animal_id, a.name AS animal_name, v.name AS vet_name, vi.visit_date
+FROM animals a
+JOIN visits vi ON a.id = vi.animal
+JOIN vets v ON vi.vet = v.id
+ORDER BY vi.visit_date DESC
+LIMIT 1;
+
+/*What specialty should Maisy Smith consider getting? Look for the species she gets the most.*/
+SELECT s.name AS recommended_specialty
+FROM (
+    SELECT vi.animal, COUNT(*) AS animal_count
+    FROM visits vi
+    JOIN vets v ON vi.vet = v.id
+    WHERE v.name = 'Maisy Smith'
+    GROUP BY vi.animal
+    ORDER BY animal_count DESC
+    LIMIT 1
+) AS subquery
+JOIN species s ON subquery.animal = s.id;
+
+
