@@ -41,3 +41,10 @@ visit_date DATE
 );
 
 
+ALTER TABLE owners ADD COLUMN email VARCHAR(120);
+
+/*performance improvement by adding an INDEXs*/
+CREATE INDEX idx_animal_id ON visits(animal_id);
+CREATE INDEX idx_vet_id ON visits(animal_id);
+CREATE INDEX idx_emil_id ON owners(email);
+
